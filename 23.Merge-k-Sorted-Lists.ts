@@ -44,3 +44,13 @@ function mergeKLists1(lists: Array<ListNode | null>): ListNode | null {
     }
     return ans;
 };
+
+function mergeKLists2(lists: Array<ListNode | null>): ListNode | null {
+    const merge = (left: number, right: number) => {
+        if (left === right) return lists[left];
+        if (left > right) return null;
+        const mid = Math.floor((left + right) / 2);
+        return merge2List(merge(left, mid), merge(mid + 1, right));
+    }
+    return merge(0, lists.length - 1);
+};
