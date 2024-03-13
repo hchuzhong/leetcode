@@ -12,7 +12,7 @@
  * }
  */
 
-function inorderTraversal(root: TreeNode | null): number[] {
+function inorderTraversal1(root: TreeNode | null): number[] {
     const result: number[] = [];
     const fn = (root: TreeNode | null) => {
         if (!root) return;
@@ -21,5 +21,21 @@ function inorderTraversal(root: TreeNode | null): number[] {
         fn(root.right);
     }
     fn(root);
+    return result;
+};
+
+function inorderTraversal2(root: TreeNode | null): number[] {
+    const result: number[] = [];
+    const stack: TreeNode[] = [];
+    let tempNode = root;
+    while (tempNode || stack.length) {
+        while (tempNode) {
+            stack.push(tempNode);
+            tempNode = tempNode.left;
+        }
+        tempNode = stack.pop();
+        result.push(tempNode.val);
+        tempNode = tempNode.right;
+    }
     return result;
 };
