@@ -12,7 +12,7 @@
  * }
  */
 
-function kthSmallest(root: TreeNode | null, k: number): number {
+function kthSmallest1(root: TreeNode | null, k: number): number {
     if (!root) return;
     const arr: TreeNode[] = [];
     const dfs = (node: TreeNode | null) => {
@@ -22,4 +22,18 @@ function kthSmallest(root: TreeNode | null, k: number): number {
     }
     dfs(root);
     return arr[k - 1].val;
+};
+
+function kthSmallest2(root: TreeNode | null, k: number): number {
+    if (!root) return;
+    let result: number;
+    const dfs = (node: TreeNode | null) => {
+        if (!node) return;
+        if (node.left) dfs(node.left);
+        k--;
+        if (k === 0) return result = node.val;
+        if (node.right) dfs(node.right);
+    }
+    dfs(root);
+    return result;
 };
