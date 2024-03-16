@@ -15,7 +15,7 @@
 /**
     Do not return anything, modify root in-place instead.
  */
-function flatten(root: TreeNode | null): void {
+function flatten1(root: TreeNode | null): void {
     if (!root) return;
     const nodeArr: TreeNode[] = [];
     const dfs = (node: TreeNode | null) => {
@@ -30,4 +30,18 @@ function flatten(root: TreeNode | null): void {
         nodeArr[i].left = null;
     }
     nodeArr[nodeArr.length - 1].left = null;
+};
+
+function flatten2(root: TreeNode | null): void {
+    while (root) {
+        if (!root.left) root = root.right;
+        else {
+            let pre = root.left;
+            while (pre.right) pre = pre.right;
+            pre.right = root.right;
+            root.right = root.left;
+            root.left = null;
+            root = root.right;
+        }
+    }
 };
