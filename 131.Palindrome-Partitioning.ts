@@ -5,7 +5,7 @@ const isPalindrome = (s: string, left: number, right: number) => {
     return true;
 }
 
-function partition(s: string): string[][] {
+function partition1(s: string): string[][] {
     const n = s.length;
     let ans: string[][] = [], path: string[] = [];
     const dfs = (i: number, start: number) => {
@@ -18,5 +18,22 @@ function partition(s: string): string[][] {
         }
     }
     dfs(0, 0);
+    return ans;
+};
+
+function partition2(s: string): string[][] {
+    const n = s.length;
+    let ans: string[][] = [], path: string[] = [];
+    const dfs = (i: number) => {
+        if (i === n) return ans.push([...path]);
+        for (let j = i; j < n; j++) {
+            if (isPalindrome(s, i, j)) {
+                path.push(s.substring(i, j + 1));
+                dfs(j + 1);
+                path.pop();
+            }
+        }
+    }
+    dfs(0);
     return ans;
 };
