@@ -15,3 +15,27 @@ function sortColors1(nums: number[]): void {
         else nums[i] = 2;
     }
 };
+
+function sortColors2(nums: number[]): void {
+    const length = nums.length;
+    if (length < 2) return;
+    let zero = 0, two = length, i = 0;
+    const swap = (index1: number, index2: number): void => {
+        if (index1 === index2) return;
+        const temp = nums[index1];
+        nums[index1] = nums[index2];
+        nums[index2] = temp;
+    }
+    while (i < two) {
+        if (nums[i] === 0) {
+            swap(i, zero);
+            zero++;
+            i++;
+        } else if (nums[i] === 1) {
+            i++;
+        } else {
+            two--;
+            swap(i, two);
+        }
+    }
+};
