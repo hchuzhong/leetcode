@@ -10,3 +10,25 @@ function uniquePaths1(m: number, n: number): number {
     }
     return dp[m - 1][n - 1];
 };
+
+function uniquePaths2(m: number, n: number): number {
+    let pre = new Array(n).fill(1);
+    let cur = new Array(n).fill(1);
+    for (let i = 1; i < m; i++) {
+        for (let j = 1; j < n; j++) {
+            cur[j] = cur[j - 1] + pre[j];
+        }
+        pre = [...cur]
+    }
+    return cur[n - 1];
+};
+
+function uniquePaths3(m: number, n: number): number {
+    const cur = new Array(n).fill(1);
+    for (let i = 1; i < m; i++) {
+        for (let j = 1; j < n; j++) {
+            cur[j] += cur[j - 1];
+        }
+    }
+    return cur[n - 1];
+};
